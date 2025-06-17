@@ -1,0 +1,29 @@
+{
+	"name": "Smart Pay",
+	"short_name": "SmartPay",
+	"theme_color": "#5ee9b5",
+	"background_color": "#ecfdf5",
+	"display": "standalone",
+	"description": "Automated Payment System For Smart Trolley",
+	"orientation": "natural",
+	"scope": "/",
+	"start_url": "/",
+	"theme_color_dark": "#ecfdf5",
+	"icons": [
+    {
+      "src": "/fav-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/fav-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "/fav-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
