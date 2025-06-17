@@ -20,6 +20,9 @@ export default function Login() {
         toast.success(response.data.mssg);
         router.prefetch('/home');
         router.push('/home');
+        setTimeout(() => {
+          router.push('/home');
+        }, 10);
       } else {
         toast.error(response.data.mssg);
       }
@@ -43,7 +46,7 @@ export default function Login() {
           <div className="space-y-1.5">
             <div>Email :</div>
             <input
-              type="text"
+              type="email"
               placeholder="email"
               value={user.email}
               onChange={(e) => {

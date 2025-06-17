@@ -57,7 +57,7 @@ export default function Signup() {
           <div className="space-y-1">
             <div>Email:</div>
             <input
-              type="text"
+              type="email"
               placeholder="email"
               value={user.email}
               onChange={(e) => {

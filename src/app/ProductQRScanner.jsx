@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Html5QrcodeScanner } from 'html5-qrcode';
+import toast from 'react-hot-toast';
 
 const ProductQRScanner = ({ setProducts, scanned, setScanned }) => {
   const scannerRef = useRef(null);
@@ -17,6 +18,17 @@ const ProductQRScanner = ({ setProducts, scanned, setScanned }) => {
         (decodedText, decodedResult) => {
           try {
             let product = JSON.parse(decodedText);
+            //{"id":10,"name":"Lays","weight":0.05,"price":10,"quantity":1}
+            if (
+              product === undefined ||
+              product.id === undefined ||
+              product.name === undefined ||
+              product.weight === undefined ||
+              product.price === undefined ||
+              product.quantity === undefined
+            ) {
+              throw new Error('Invalid product data');
+            }
             setProducts((prevProducts) => {
               // Check if product with same id exists
               const existingIndex = prevProducts.findIndex(
@@ -34,10 +46,12 @@ const ProductQRScanner = ({ setProducts, scanned, setScanned }) => {
               // If not exists, add with quantity 1
               return [...prevProducts, { ...product, quantity: 1 }];
             });
-            setScanned(true);
-            scannerRef.current.clear();
           } catch (e) {
-            console.warn('Failed to parse QR code JSON:', e);
+            console.error('Failed to parse QR code JSON:', e);
+            toast.error('Invalid product data in QR code');
+          } finally {
+            setScanned(true);
+            scannerRef.current.clear().catch(() => {});
           }
         },
         (error) => {
