@@ -16,7 +16,12 @@ export default function Login() {
   const onLogin = async () => {
     try {
       const response = await axios.post('/api/auth/login', user);
+      const fetchedUser = response.data.user;
       if (response.data.success) {
+        // Store user in localStorage
+        if (typeof window !== 'undefined' && fetchedUser) {
+          localStorage.setItem('fetchedUser', JSON.stringify(fetchedUser));
+        }
         toast.success(response.data.mssg);
         router.prefetch('/home');
         router.push('/home');

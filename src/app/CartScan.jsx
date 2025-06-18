@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import QRCodeGenerator from './QRCodeGenerator';
 import QRScanner from './QRScanner';
 
 const CartScan = ({ cartNo, setCartNo, startShopping, setStartShopping }) => {
+  const [username, setUsername] = useState('User');
+
+  useEffect(() => {
+    const userStr = localStorage.getItem('fetchedUser');
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        setUsername(user.username || '');
+      } catch (e) {
+        setUsername('');
+      }
+    }
+  }, []);
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4.5rem)] bg-emerald-50 px-4">
       <div className="h-full w-full p-6 border border-emerald-300 flex flex-col items-center justify-between sm:p-6 rounded-lg shadow-lg bg-white space-y-6">
         <div className="flex flex-col space-y-4 w-full">
+          <div className="text-center text-2xl font-bold text-emerald-400 pb-2">
+            {username && <span className="font-semibold">Hi {username}!</span>}
+          </div>
           {/* <div className="flex justify-between items-center sm:space-x-5">
             <div className="text-lg">Customer ID:</div>
             <input
