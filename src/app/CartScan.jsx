@@ -20,7 +20,7 @@ const CartScan = ({ cartNo, setCartNo, startShopping, setStartShopping }) => {
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4.5rem)] bg-emerald-50 px-4">
       <div className="h-full w-full p-6 border border-emerald-300 flex flex-col items-center justify-between sm:p-6 rounded-lg shadow-lg bg-white space-y-6">
         <div className="flex flex-col space-y-4 w-full">
-          <div className="text-center text-2xl font-bold text-emerald-400 pb-2">
+          <div className="text-center text-xl font-bold text-emerald-300 pb-1">
             {username && <span className="font-semibold">Hi {username}!</span>}
           </div>
           {/* <div className="flex justify-between items-center sm:space-x-5">
