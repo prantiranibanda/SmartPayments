@@ -16,8 +16,8 @@ export default function Login() {
   const onLogin = async () => {
     try {
       const response = await axios.post('/api/auth/login', user);
-      const fetchedUser = response.data.user;
       if (response.data.success) {
+				const fetchedUser = response.data.user;
         // Store user in localStorage
         if (typeof window !== 'undefined' && fetchedUser) {
           localStorage.setItem('fetchedUser', JSON.stringify(fetchedUser));

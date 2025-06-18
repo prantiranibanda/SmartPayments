@@ -18,6 +18,11 @@ export default function Signup() {
     try {
       const response = await axios.post('/api/auth/signup', user);
       if (response.data.success) {
+        const fetchedUser = response.data.newUser;
+				// localStorage.setItem('fetchedUser', JSON.stringify(newUser));
+				if (typeof window !== 'undefined' && fetchedUser) {
+          localStorage.setItem('fetchedUser', JSON.stringify(fetchedUser));
+        }
         toast.success(response.data.mssg);
         router.prefetch('/home');
         router.push('/home');

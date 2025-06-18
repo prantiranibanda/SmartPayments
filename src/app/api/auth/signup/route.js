@@ -26,7 +26,6 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
     }
 
-    console.log('salt');
     const salt = bcryptjs.genSaltSync(10);
     const hashedPassword = bcryptjs.hashSync(password, salt);
 
@@ -48,8 +47,8 @@ export async function POST(request) {
     );
 
     const resp = NextResponse.json(
-      { success: true, mssg: 'User created successfully' },
-      { status: 200 }
+      { success: true, mssg: 'User created successfully', newUser},
+      { status: 200 },
     );
 
     resp.cookies.set('jwtToken', token, { httpOnly: false });
