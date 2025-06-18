@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import QRCodeGenerator from './QRCodeGenerator';
 import QRScanner from './QRScanner';
 
 const CartScan = ({ cartNo, setCartNo, startShopping, setStartShopping }) => {
   const [username, setUsername] = useState('User');
+  const [customerWeight, setCustomerWeight] = useState('');
 
   useEffect(() => {
     const userStr = localStorage.getItem('fetchedUser');
@@ -16,6 +16,7 @@ const CartScan = ({ cartNo, setCartNo, startShopping, setStartShopping }) => {
       }
     }
   }, []);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-4.5rem)] bg-emerald-50 px-4">
       <div className="h-full w-full p-6 border border-emerald-300 flex flex-col items-center justify-between sm:p-6 rounded-lg shadow-lg bg-white space-y-6">
@@ -56,6 +57,8 @@ const CartScan = ({ cartNo, setCartNo, startShopping, setStartShopping }) => {
             <input
               type="text"
               id="weight"
+              value={customerWeight}
+              onChange={(e) => setCustomerWeight(e.target.value)}
               className="border border-emerald-500 px-2 py-1 rounded w-full"
             />
           </div>
@@ -71,8 +74,12 @@ const CartScan = ({ cartNo, setCartNo, startShopping, setStartShopping }) => {
             >
               Reset QR
             </button>
-            <button
-              onClick={() => {
+						<button
+							disabled={customerWeight === ''}
+							onClick={() => {
+								if (customerWeight !== '') {
+                  localStorage.setItem('customerWeight', customerWeight);
+                }
                 setStartShopping(true);
               }}
               className="bg-emerald-400 text-white px-4 py-2 rounded hover:bg-emerald-500 transition-colors font-semibold"

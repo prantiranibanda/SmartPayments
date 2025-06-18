@@ -27,7 +27,7 @@ const ScanProduct = () => {
 
   const totalWeight = products
     .reduce((sum, p) => sum + p.weight * p.quantity, 0)
-    .toFixed(2);
+    .toFixed(3);
   const totalPrice = products
     .reduce((sum, p) => sum + p.price * p.quantity, 0)
     .toFixed(2);
@@ -83,7 +83,7 @@ const ScanProduct = () => {
                       {p.name}
                     </td>
                     <td className="p-1 sm:px-4 sm:py-2 border-b border-l border-gray-600">
-                      {p.weight} kg
+                      {p.weight}0 kg
                     </td>
                     <td className="p-1 sm:px-4 sm:py-2 border-b border-l border-gray-600 space-x-2 text-center">
                       <button

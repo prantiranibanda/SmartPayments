@@ -7,12 +7,17 @@ function SuccessContent() {
   const searchParams = useSearchParams();
   const receipt = searchParams.get('receipt');
   const [billing, setBilling] = useState(null);
+  const [customerWeight, setCustomerWeight] = useState('');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const data = localStorage.getItem('paymentSuccessData');
       if (data) {
         setBilling(JSON.parse(data));
+      }
+      const storedWeight = localStorage.getItem('customerWeight');
+      if (storedWeight) {
+        setCustomerWeight(storedWeight);
       }
     }
   }, []);
@@ -45,10 +50,18 @@ function SuccessContent() {
             <tbody>
               {billing.products.map((p, i) => (
                 <tr key={i}>
-                  <td className="border px-1 py-0.5 sm:px-2 sm:py-1">{p.name}</td>
-                  <td className="border px-1 py-0.5 sm:px-2 sm:py-1">{p.weight} kg</td>
-                  <td className="border px-1 py-0.5 sm:px-2 sm:py-1">₹{p.price}</td>
-                  <td className="border px-1 py-0.5 sm:px-2 sm:py-1">{p.quantity}</td>
+                  <td className="border px-1 py-0.5 sm:px-2 sm:py-1">
+                    {p.name}
+                  </td>
+                  <td className="border px-1 py-0.5 sm:px-2 sm:py-1">
+                    {p.weight}0 kg
+                  </td>
+                  <td className="border px-1 py-0.5 sm:px-2 sm:py-1">
+                    ₹{p.price}
+                  </td>
+                  <td className="border px-1 py-0.5 sm:px-2 sm:py-1">
+                    {p.quantity}
+                  </td>
                   <td className="border px-1 py-0.5 sm:px-2 sm:py-1">
                     ₹{(p.price * p.quantity).toFixed(2)}
                   </td>
@@ -62,8 +75,21 @@ function SuccessContent() {
               {billing.totalItems}
             </div>
             <div>
-              <span className="font-semibold">Total Weight:</span>{' '}
+              <span className="font-semibold">Total Product Weight:</span>{' '}
               {billing.totalWeight} kg
+            </div>
+            <div>
+              <span className="font-semibold">Customer Weight:</span>{' '}
+              {customerWeight} kg
+            </div>
+            <div>
+              <span className="font-semibold">Total Weight:</span>{' '}
+              {billing && customerWeight
+                ? (
+                    parseFloat(billing.totalWeight) + parseFloat(customerWeight)
+                  ).toFixed(3)
+                : ''}{' '}
+              kg
             </div>
             <div>
               <span className="font-semibold">Total Price:</span> ₹
